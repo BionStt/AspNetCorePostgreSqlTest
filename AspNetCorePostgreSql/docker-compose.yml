@@ -1,0 +1,41 @@
+version: '2'
+ 
+services:
+
+  web:
+    container_name: 'aspnetcoreapp'
+    image: 'aspnetcoreapp'
+    build:
+      context: .
+      dockerfile: aspnetcore.development.dockerfile
+    volumes:
+      - .:/var/www/AspNetCorePostgreSql
+    ports:
+     - "5000:5000"
+    depends_on:
+     - "postgres"
+    networks:
+      - aspnetcoreapp-network
+
+  postgres:
+     image: smartonepgsql
+     restart: always
+     build:
+       context: PostgreSqlDocker
+       dockerfile: PostgreSql.dockerfile
+     ports:
+       - 5432:5432
+     environment:
+         POSTGRES_PASSWORD: smartone
+         POSTGRES_USER: smartone
+     volumes:
+       - pgdata:/var/lib/postgresql/data
+     networks:
+      - aspnetcoreapp-network
+ 
+volumes:
+  pgdata:
+
+networks:
+  aspnetcoreapp-network:
+    driver: bridge

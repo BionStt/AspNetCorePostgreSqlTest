@@ -1,0 +1,5 @@
+﻿{
+  "ConnectionStrings": {
+    "DataAccessPostgreSqlProvider": "User ID=smartone;Password=smartone;Host=postgres;Port=5432;Database=smartone;Pooling=true;"
+  }
+}
